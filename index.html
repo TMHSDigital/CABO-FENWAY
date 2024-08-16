@@ -84,90 +84,6 @@
             transform: scale(1.1);
         }
 
-        .form-container {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-title {
-            font-size: 2em;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: grid;
-            gap: 20px;
-        }
-
-        .input-group {
-            position: relative;
-        }
-
-        input {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.8);
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px var(--accent-color);
-        }
-
-        label {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            color: #666;
-        }
-
-        input:focus + label,
-        input:not(:placeholder-shown) + label {
-            top: 0;
-            font-size: 0.8em;
-            background-color: var(--accent-color);
-            padding: 0 5px;
-            color: var(--primary-color);
-        }
-
-        button {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-color);
-        }
-
         #countdown {
             font-size: 1.5em;
             text-align: center;
@@ -177,6 +93,13 @@
             padding: 15px;
             border-radius: 10px;
             backdrop-filter: blur(5px);
+        }
+
+        #formContainer {
+            width: 100%;
+            height: 700px;
+            border: none;
+            margin-top: 30px;
         }
 
         .social-section {
@@ -226,39 +149,7 @@
             <img src="red-sox-logo.jpg" alt="Red Sox Logo" class="logo">
         </div>
         <div id="countdown"></div>
-        <div class="form-container">
-            <div class="form-title">Interested?</div>
-            <form id="interestForm">
-                <div class="input-group">
-                    <input type="text" id="name" name="name" placeholder=" " required>
-                    <label for="name">Full Name</label>
-                </div>
-                <div class="input-group">
-                    <input type="email" id="email" name="email" placeholder=" " required>
-                    <label for="email">Email Address</label>
-                </div>
-                <div class="input-group">
-                    <input type="tel" id="phone" name="phone" placeholder=" ">
-                    <label for="phone">Phone Number</label>
-                </div>
-                <div class="input-group">
-                    <input type="text" id="facebook" name="facebook" placeholder=" ">
-                    <label for="facebook">Facebook Profile URL</label>
-                    <i class="fab fa-facebook social-icon"></i>
-                </div>
-                <div class="input-group">
-                    <input type="text" id="instagram" name="instagram" placeholder=" ">
-                    <label for="instagram">Instagram Handle</label>
-                    <i class="fab fa-instagram social-icon"></i>
-                </div>
-                <div class="input-group">
-                    <input type="text" id="twitter" name="twitter" placeholder=" ">
-                    <label for="twitter">Twitter Handle</label>
-                    <i class="fab fa-twitter social-icon"></i>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        <iframe id="formContainer" src="form.html"></iframe>
         <div class="social-section">
             <h2>Follow Us</h2>
             <iframe id="socialButtons" src="socials.html" frameborder="0"></iframe>
@@ -269,30 +160,6 @@
     </div>
 
     <script>
-        document.getElementById('interestForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            var formData = new FormData(this);
-
-            fetch('process-form.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Thank you for your interest! We\'ll be in touch soon.');
-                    this.reset(); // Reset the form
-                } else {
-                    alert('There was an error submitting the form. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error submitting the form. Please try again.');
-            });
-        });
-
         // Countdown Timer
         const eventDate = new Date("2024-08-29T19:00:00").getTime(); // Event date: August 29, 2024 at 7:00 PM
         const countdownElement = document.getElementById('countdown');
