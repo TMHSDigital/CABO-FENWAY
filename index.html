@@ -56,8 +56,8 @@
         }
 
         @keyframes colorChange {
-            0%, 100% { color: var(--accent-color); } /* Yellow */
-            50% { color: var(--secondary-color); } /* Red */
+            0%, 100% { color: var(--accent-color); }
+            50% { color: var(--secondary-color); }
         }
 
         @keyframes wobble {
@@ -174,6 +174,24 @@
             margin-top: 20px;
             font-weight: bold;
         }
+
+        .social-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .social-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        #socialButtons {
+            border: none;
+            width: 100%;
+            height: 80px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -218,6 +236,10 @@
                 </div>
                 <button type="submit">Submit</button>
             </form>
+        </div>
+        <div class="social-section">
+            <h2>Follow Us</h2>
+            <iframe id="socialButtons" src="socials.html" frameborder="0"></iframe>
         </div>
     </div>
 
