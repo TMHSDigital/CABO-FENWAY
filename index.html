@@ -4,96 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cape Verdean Night at Fenway Park</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
         
+        :root {
+            --primary-color: #0C2340;
+            --secondary-color: #BD3039;
+            --accent-color: #ffcb05;
+            --text-color: #ffffff;
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #0C2340; /* Red Sox navy blue */
-            color: #ffffff;
+            background-color: var(--primary-color);
+            color: var(--text-color);
             overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
+
         header {
             text-align: center;
-            padding: 50px 0;
-            background: linear-gradient(45deg, #0C2340, #1A4780);
+            padding: 100px 0 50px;
+            background: linear-gradient(45deg, var(--primary-color), #1A4780);
             position: relative;
             overflow: hidden;
         }
+
         .animated-text {
-            font-size: 3em;
+            font-size: 4em;
             font-weight: bold;
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 1.5s forwards, colorChange 5s infinite alternate;
         }
+
         @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
         @keyframes colorChange {
-            0%, 100% { color: #ffffff; }
-            50% { color: #ffcb05; } /* Cape Verde yellow */
+            0%, 100% { color: var(--text-color); }
+            50% { color: var(--accent-color); }
         }
+
         .logo-container {
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 30px 0;
         }
+
         .logo {
             max-width: 150px;
             height: auto;
             margin: 0 20px;
             transition: transform 0.3s ease;
         }
+
         .logo:hover {
             transform: scale(1.1);
         }
+
         .form-container {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 30px;
             border-radius: 10px;
             margin-top: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .form-title {
             font-size: 2em;
             text-align: center;
             margin-bottom: 20px;
         }
+
         form {
             display: grid;
-            gap: 15px;
+            gap: 20px;
         }
+
+        .input-group {
+            position: relative;
+        }
+
         input {
             width: 100%;
-            padding: 10px;
+            padding: 15px;
             border: none;
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            transition: all 0.3s ease;
         }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            color: #666;
+        }
+
+        input:focus + label,
+        input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 0.8em;
+            background-color: var(--accent-color);
+            padding: 0 5px;
+            color: var(--primary-color);
+        }
+
         button {
-            background-color: #BD3039; /* Red Sox red */
-            color: #ffffff;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
             padding: 15px 30px;
             border: none;
             border-radius: 5px;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: all 0.3s ease;
         }
+
         button:hover {
-            background-color: #9e2730;
-            transform: scale(1.05);
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        #countdown {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -106,15 +178,37 @@
             <img src="flag-cape-verde.svg" alt="Cape Verde Flag" class="logo">
             <img src="red-sox-logo.jpg" alt="Red Sox Logo" class="logo">
         </div>
+        <div id="countdown"></div>
         <div class="form-container">
             <div class="form-title">Interested?</div>
             <form id="interestForm">
-                <input type="text" name="name" placeholder="Full Name" required>
-                <input type="email" name="email" placeholder="Email Address" required>
-                <input type="tel" name="phone" placeholder="Phone Number">
-                <input type="text" name="facebook" placeholder="Facebook Profile URL">
-                <input type="text" name="instagram" placeholder="Instagram Handle">
-                <input type="text" name="twitter" placeholder="Twitter Handle">
+                <div class="input-group">
+                    <input type="text" id="name" name="name" placeholder=" " required>
+                    <label for="name">Full Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder=" " required>
+                    <label for="email">Email Address</label>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phone" name="phone" placeholder=" ">
+                    <label for="phone">Phone Number</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="facebook" name="facebook" placeholder=" ">
+                    <label for="facebook">Facebook Profile URL</label>
+                    <i class="fab fa-facebook social-icon"></i>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="instagram" name="instagram" placeholder=" ">
+                    <label for="instagram">Instagram Handle</label>
+                    <i class="fab fa-instagram social-icon"></i>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="twitter" name="twitter" placeholder=" ">
+                    <label for="twitter">Twitter Handle</label>
+                    <i class="fab fa-twitter social-icon"></i>
+                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>
@@ -123,9 +217,32 @@
     <script>
         document.getElementById('interestForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Here you would typically send the form data to a server
             alert('Thank you for your interest! We\'ll be in touch soon.');
         });
+
+        // Countdown Timer
+        const eventDate = new Date("2024-09-15T19:00:00").getTime(); // Set your event date here
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = `Event starts in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                countdownElement.innerHTML = "Event has started!";
+            }
+        }
+
+        const countdownTimer = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
     </script>
 </body>
 </html>
