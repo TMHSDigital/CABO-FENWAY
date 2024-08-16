@@ -12,30 +12,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $twitter = isset($_POST['twitter']) ? htmlspecialchars($_POST['twitter']) : '';
 
     // Format the data
-    $formattedData = "New Interest Form Submission\n\n";
+    $formattedData = "New Interest Form Submission\n";
+    $formattedData .= "Date: " . date('Y-m-d H:i:s') . "\n";
     $formattedData .= "Name: $name\n";
     $formattedData .= "Email: $email\n";
     $formattedData .= "Phone: $phone\n";
     $formattedData .= "Facebook: $facebook\n";
     $formattedData .= "Instagram: $instagram\n";
     $formattedData .= "Twitter: $twitter\n";
-    $formattedData .= "Submitted on: " . date('Y-m-d H:i:s') . "\n";
+    $formattedData .= "-----------------------------\n\n";
 
-    // Option 1: Save to a file
-    $file = 'form_responses.txt';
-    file_put_contents($file, $formattedData . "\n\n", FILE_APPEND);
+    // Specify the file to save responses
+    $file = 'responses.txt';
 
-    // Option 2: Send an email
-    $to = 'your-email@example.com'; // Replace with your email address
-    $subject = 'New Interest Form Submission - Cape Verdean Night';
-    $headers = 'From: webmaster@example.com' . "\r\n" .
-        'Reply-To: ' . $email . "\r\n" .
-        'X-Mailer: PHP/' . phpversion();
-
-    mail($to, $subject, $formattedData, $headers);
-
-    // Send a response back to the client
-    echo json_encode(['status' => 'success', 'message' => 'Form submitted successfully']);
+    // Append the formatted data to the file
+    if (file_put_contents($file, $formattedData, FILE_APPEND | LOCK_EX) !== false) {
+        // Success response
+        echo json_encode(['status' => 'success', 'message' => 'Form submitted successfully']);
+    } else {
+        // Error response if unable to write to file
+        echo json_encode(['status' => 'error', 'message' => 'Unable to save form data']);
+    }
 } else {
     // If not a POST request, return an error
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
