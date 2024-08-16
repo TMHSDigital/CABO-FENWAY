@@ -44,7 +44,8 @@
             font-weight: bold;
             opacity: 0;
             transform: translateY(50px);
-            animation: fadeInUp 1.5s forwards, colorChange 5s infinite alternate;
+            animation: fadeInUp 1.5s forwards, colorChange 10s infinite, wobble 5s ease-in-out infinite;
+            display: inline-block;
         }
 
         @keyframes fadeInUp {
@@ -55,8 +56,14 @@
         }
 
         @keyframes colorChange {
-            0%, 100% { color: var(--text-color); }
-            50% { color: var(--accent-color); }
+            0%, 100% { color: var(--accent-color); } /* Yellow */
+            50% { color: var(--secondary-color); } /* Red */
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(-5px) rotate(-5deg); }
+            75% { transform: translateX(5px) rotate(5deg); }
         }
 
         .logo-container {
