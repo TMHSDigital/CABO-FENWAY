@@ -246,7 +246,26 @@
     <script>
         document.getElementById('interestForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your interest! We\'ll be in touch soon.');
+            
+            var formData = new FormData(this);
+
+            fetch('process-form.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Thank you for your interest! We\'ll be in touch soon.');
+                    this.reset(); // Reset the form
+                } else {
+                    alert('There was an error submitting the form. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting the form. Please try again.');
+            });
         });
 
         // Countdown Timer
