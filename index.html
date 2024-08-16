@@ -173,6 +173,10 @@
             text-align: center;
             margin-top: 20px;
             font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
         }
 
         .social-section {
@@ -269,12 +273,17 @@
         });
 
         // Countdown Timer
-        const eventDate = new Date("2024-09-15T19:00:00").getTime(); // Set your event date here
+        const eventDate = new Date("2024-08-29T19:00:00").getTime(); // Event date: August 29, 2024 at 7:00 PM
         const countdownElement = document.getElementById('countdown');
 
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = eventDate - now;
+
+            if (distance < 0) {
+                countdownElement.innerHTML = "The event has started!";
+                return;
+            }
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -282,15 +291,10 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             countdownElement.innerHTML = `Event starts in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            if (distance < 0) {
-                clearInterval(countdownTimer);
-                countdownElement.innerHTML = "Event has started!";
-            }
         }
 
-        const countdownTimer = setInterval(updateCountdown, 1000);
         updateCountdown(); // Initial call
+        setInterval(updateCountdown, 1000); // Update every second
     </script>
 </body>
 </html>
