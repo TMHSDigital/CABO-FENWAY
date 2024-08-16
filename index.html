@@ -196,6 +196,24 @@
             height: 80px;
             margin-top: 20px;
         }
+
+        .gif-container {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .gif-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -244,6 +262,9 @@
         <div class="social-section">
             <h2>Follow Us</h2>
             <iframe id="socialButtons" src="socials.html" frameborder="0"></iframe>
+        </div>
+        <div class="gif-container">
+            <iframe src="https://giphy.com/embed/L6Mgrfcc6Y9PS2Nm6B" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </div>
     </div>
 
